@@ -1,0 +1,29 @@
+/* Custom styles on top of Tailwind */
+.nav-item {
+    @apply flex flex-col items-center gap-1 px-3 py-1 rounded-lg transition-colors text-gray-600 hover:text-blue-600;
+}
+
+.nav-item span {
+    @apply text-xs font-medium;
+}
+
+.nav-item.active {
+    @apply text-blue-600;
+}
+
+.stock-card {
+    @apply bg-white rounded-xl p-4 mb-3 border border-gray-100 hover:border-blue-200 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md;
+}
+
+.stock-change-positive {
+    @apply flex items-center text-sm text-emerald-600;
+}
+
+.stock-change-negative {
+    @apply flex items-center text-sm text-red-600;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}

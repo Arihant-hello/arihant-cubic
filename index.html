@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arihant Cubic - Trading & Investment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles */
+        .nav-item {
+            @apply flex flex-col items-center gap-1 px-3 py-1 rounded-lg transition-colors text-gray-600 hover:text-blue-600;
+        }
+
+        .nav-item span {
+            @apply text-xs font-medium;
+        }
+
+        .nav-item.active {
+            @apply text-blue-600;
+        }
+
+        .stock-card {
+            @apply bg-white rounded-xl p-4 mb-3 border border-gray-100 hover:border-blue-200 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md;
+        }
+
+        .stock-change-positive {
+            @apply flex items-center text-sm text-emerald-600;
+        }
+
+        .stock-change-negative {
+            @apply flex items-center text-sm text-red-600;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navbar -->
+    <header class="bg-white border-b border-gray-200">
+        <div class="flex items-center justify-between px-4 py-3">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-600 p-2 rounded-lg">
+                    <svg class="text-white w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-900">Arihant Cubic</h1>
+                    <p class="text-xs text-gray-500">Trading & Investment</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" 
+                     alt="Profile" 
+                     class="w-8 h-8 rounded-full border-2 border-gray-200">
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pb-16">
+        <!-- Ad Banner -->
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4">
+            <div class="flex items-center justify-between">
+                <div class="flex-1">
+                    <h2 class="text-lg font-bold">Start Trading Now!</h2>
+                    <p class="text-sm opacity-90 mt-1">
+                        Open a free demat account and start your investment journey
+                    </p>
+                </div>
+                <button class="flex items-center gap-1 bg-white text-indigo-600 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-opacity-90 transition-colors">
+                    Get Started
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="p-4 sticky top-0 bg-gray-50 z-10">
+            <div class="relative">
+                <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search stocks..."
+                    class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 bg-white"
+                >
+            </div>
+        </div>
+
+        <!-- Stock List -->
+        <div id="stockList" class="px-4"></div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 w-full bg-white border-t border-gray-200">
+        <div class="flex justify-around items-center h-16">
+            <button class="nav-item active">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+                <span>Watchlist</span>
+            </button>
+            <button class="nav-item">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                </svg>
+                <span>Orders</span>
+            </button>
+            <button class="nav-item">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                </svg>
+                <span>Cart</span>
+            </button>
+            <button class="nav-item">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+                <span>Account</span>
+            </button>
+        </div>
+    </nav>
+
+    <script>
+        // Stock data
+        const stocks = [
+            { symbol: 'RELIANCE', name: 'Reliance Industries', change: 1.2 },
+            { symbol: 'TCS', name: 'Tata Consultancy Services', change: -0.8 },
+            { symbol: 'HDFC', name: 'HDFC Bank Limited', change: 2.1 },
+            { symbol: 'INFY', name: 'Infosys Limited', change: -1.5 },
+            { symbol: 'ITC', name: 'ITC Limited', change: 0.5 },
+            { symbol: 'BHARTIARTL', name: 'Bharti Airtel', change: 1.8 },
+            { symbol: 'HCLTECH', name: 'HCL Technologies', change: -0.3 },
+            { symbol: 'WIPRO', name: 'Wipro Limited', change: 0.9 },
+        ];
+
+        // DOM Elements
+        const searchInput = document.getElementById('searchInput');
+        const stockList = document.getElementById('stockList');
+
+        // Render stock list
+        function renderStocks(filteredStocks = stocks) {
+            stockList.innerHTML = filteredStocks.map(stock => `
+                <div class="stock-card">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-semibold text-gray-900">${stock.symbol}</h3>
+                            <p class="text-sm text-gray-500">${stock.name}</p>
+                        </div>
+                        <div class="${stock.change >= 0 ? 'stock-change-positive' : 'stock-change-negative'}">
+                            ${stock.change >= 0 ? 
+                                '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>' :
+                                '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>'
+                            }
+                            ${Math.abs(stock.change)}%
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search functionality
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filteredStocks = stocks.filter(stock => 
+                stock.symbol.toLowerCase().includes(query) ||
+                stock.name.toLowerCase().includes(query)
+            );
+            renderStocks(filteredStocks);
+        });
+
+        // Bottom navigation functionality
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+
+        // Initial render
+        renderStocks();
+    </script>
+</body>
+</html>
